@@ -46,7 +46,8 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
         useGrouping : true, // 1,000,000 vs 1000000
         separator : ',', // character to use as a separator
         decimal : '.', // character to use as a decimal
-        radix : 10  // the radix of number to be shown
+        radix : 10, // the radix of number to be shown
+        groupSize : 3 // the size of group
     };
     // extend default options with passed options object
     for (var key in options) {
@@ -187,7 +188,7 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
         x = nStr.split('.');
         x1 = x[0];
         x2 = x.length > 1 ? self.options.decimal + x[1] : '';
-        rgx = /(\d+)(\d{3})/;
+        rgx = new RegExp('(\\d+)(\\d{' + self.options.groupSize + '})');
         if (self.options.useGrouping) {
             while (rgx.test(x1)) {
                 x1 = x1.replace(rgx, '$1' + self.options.separator + '$2');
