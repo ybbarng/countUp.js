@@ -45,7 +45,8 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
         useEasing : true, // toggle easing
         useGrouping : true, // 1,000,000 vs 1000000
         separator : ',', // character to use as a separator
-        decimal : '.' // character to use as a decimal
+        decimal : '.', // character to use as a decimal
+        radix : 10  // the radix of number to be shown
     };
     // extend default options with passed options object
     for (var key in options) {
@@ -178,6 +179,9 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
     };
     this.formatNumber = function(nStr) {
         nStr = nStr.toFixed(self.decimals);
+        if (self.options.radix !== 10) {
+          nStr = parseInt(nStr).toString(self.options.radix);
+        }
         nStr += '';
         var x, x1, x2, rgx;
         x = nStr.split('.');
