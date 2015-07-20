@@ -47,7 +47,8 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
         separator : ',', // character to use as a separator
         decimal : '.', // character to use as a decimal
         radix : 10, // the radix of number to be shown
-        groupSize : 3 // the size of group
+        groupSize : 3, // the size of group
+        displayRadix : false // toggle radix after the number
     };
     // extend default options with passed options object
     for (var key in options) {
@@ -58,6 +59,9 @@ var CountUp = function(target, startVal, endVal, decimals, duration, options) {
     if (this.options.separator === '') this.options.useGrouping = false;
     if (!this.options.prefix) this.options.prefix = '';
     if (!this.options.suffix) this.options.suffix = '';
+    if (this.options.displayRadix) {
+      this.options.suffix = '<sub>(' + this.options.radix + ')</sub>';
+    }
 
     this.d = (typeof target === 'string') ? document.getElementById(target) : target;
     this.startVal = Number(startVal);
